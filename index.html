@@ -8,30 +8,21 @@
     <script type="module">
       // IMPORTS
       import { h, Component, render } from './web_modules/solidpay-ui.js'
-
-      // FUNCTIONS
-      /**
-       * Gets sha256 string from string
-       *
-       * @param {string} str - A string to be hashed
-       * @returns {Promise <string>} A promise of a sha256 hash of that string
-       */
-      async function sha256 (str) {
-        var bytes = new TextEncoder('utf-8').encode(str)
-        const buf = await crypto.subtle.digest('SHA-256', bytes)
-        return Array.prototype.map
-          .call(new Uint8Array(buf), x => ('00' + x.toString(16)).slice(-2))
-          .join('')
-      }
+      import sha256 from './web_modules/js-sha256.js'
 
       // APP
       class App extends Component {
         // INIT
         constructor (props) {
           super(props)
+          let hash = window.location.hash.substring(1)
+          let init = {
+            pw: hash,
+            sha256: hash ? sha256(hash) : ''
+          }
           this.state = {
-            pw: '',
-            sha256: '',
+            pw: init.pw,
+            sha256: init.sha256,
             timeTaken: 0,
             title: 'sha256'
           }
@@ -50,7 +41,7 @@
 
           // calculate sha256
           let pw = event.target.value
-          var res = await sha256(pw)
+          var res = sha256(pw)
 
           // benchmark
           var timeTaken = new Date().getTime() - startTime
