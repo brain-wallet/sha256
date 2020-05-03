@@ -87,7 +87,8 @@
                 h('input', {
                   placeholder: 'sha256',
                   className: 'card w-100',
-                  value: this.state.sha256
+                  value: this.state.sha256,
+                  disabled: true
                 }),
                 h('h1'),
                 h('span', null, 'Time taken: ' + this.state.timeTaken + 'ms')
