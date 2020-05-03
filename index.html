@@ -57,16 +57,17 @@
         // RENDER
         render (props, state) {
           //components
-          const sha256Input = () =>
-            h('input', {
+          const sha256Input = () => {
+            return h('input', {
               placeholder: 'sha256',
               className: 'card w-100',
               value: this.state.sha256,
               disabled: true
             })
+          }
 
-          const pwInput = () =>
-            h('input', {
+          const pwInput = () => {
+            return h('input', {
               placeholder: 'passphrase',
               className: 'card w-100',
               onChange: this.handleChange,
@@ -75,27 +76,32 @@
               name: 'pw',
               autoFocus: true
             })
+          }
 
-          const nav = () =>
-            h(
+          const nav = title => {
+            return h(
               'div',
-              {
-                className: 'bg-success white ph2 pv2 nav'
-              },
-              this.state.title
+              { className: ' bg-success white ph2 pv2 nav' },
+              navItem(1, title)
             )
+          }
 
-          const form = () =>
-            h(
+          const navItem = (cols, text) => {
+            return h('div', { className: 'col' + ' ' + cols }, text)
+          }
+
+          const form = () => {
+            return h(
               'div',
               { className: 'row' },
               pwInput(),
               sha256Input(),
               h('sub', null, 'Time: ' + this.state.timeTaken + 'ms')
             )
+          }
 
           // main
-          return h('span', null, nav(), form())
+          return h('div', null, nav(this.state.title), form())
         }
       }
 
