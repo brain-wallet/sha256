@@ -6,10 +6,10 @@
   </head>
   <body>
     <script type="module">
-      // imports
+      // IMPORTS
       import { h, Component, render } from 'https://unpkg.com/preact?module'
-      import htm from 'https://unpkg.com/htm@3.0.4/dist/htm.module.js'
 
+      // FUNCTIONS
       /**
        * Gets sha256 string from string
        *
@@ -24,43 +24,21 @@
           .join('')
       }
 
-      /**
-       * Hex to bytes
-       *
-       * @param {string} str A hex string
-       * @returns {int[]} An array of bytes
-       */
-      function hexToBytes (str) {
-        var result = []
-        while (str.length >= 2) {
-          result.push(parseInt(str.substring(0, 2), 16))
-          str = str.substring(2, str.length)
-        }
-        return result
-      }
-
-      const html = htm.bind(h)
-
-      const title = 'sha256'
-
-      function SomePreactComponent (props) {
-        return html`
-          <h1 style="color: red">Hello, World!</h1>
-        `
-      }
-
-      /** Example classful component */
+      // APP
       class App extends Component {
+        // INIT
         constructor (props) {
           super(props)
           this.state = {
             pw: '',
             sha256: '',
-            timeTaken: 0
+            timeTaken: 0,
+            title: 'sha256'
           }
           this.handleChange = this.handleChange.bind(this)
         }
 
+        // EVENTS
         /**
          * handle all form changes
          *
@@ -68,21 +46,14 @@
          * @memberof Body
          */
         async handleChange (e) {
-          console.log(e)
-          pw = event.target.value
-
           let startTime = new Date().getTime()
-          var pw
-          var target = e.target
-          if (e.target) {
-            var name = e.target.name
-          }
 
+          // calculate sha256
+          let pw = event.target.value
           var res = await sha256(pw)
 
           // benchmark
           var timeTaken = new Date().getTime() - startTime
-          console.log('timeTaken', timeTaken)
 
           // update state
           this.setState({
@@ -92,9 +63,7 @@
           })
         }
 
-        componentDidMount () {
-          this.setState({ message: title })
-        }
+        // RENDER
         render (props, state) {
           return h(
             'div',
@@ -105,7 +74,7 @@
               h(
                 'div',
                 { id: 'app' },
-                h('h1', null, this.state.message),
+                h('h1', null, this.state.title),
                 h('input', {
                   placeholder: 'passphrase',
                   className: 'card w-100',
