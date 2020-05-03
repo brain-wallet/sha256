@@ -1,2 +1,2 @@
-# sha256
-sha256 function
+# brain-wallet
+brain wallet
