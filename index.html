@@ -69,7 +69,6 @@
         async handleChange (e) {
           console.log(e)
           pw = event.target.value
-          this.setState({ pw: pw })
 
           let startTime = new Date().getTime()
           var pw
@@ -78,7 +77,7 @@
             var name = e.target.name
           }
 
-          var res = await sha256(this.state.pw)
+          var res = await sha256(pw)
 
           // benchmark
           var timeTaken = new Date().getTime() - startTime
@@ -86,6 +85,7 @@
 
           // update state
           this.setState({
+            pw: pw,
             sha256: res,
             timeTaken: timeTaken
           })
