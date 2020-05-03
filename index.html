@@ -7,15 +7,20 @@
   <body>
     <script type="module">
       // IMPORTS
-      import { h, Component, render } from './web_modules/solidpay-ui.js'
+      import { h, html, Component, render } from './web_modules/spux.js'
       import sha256 from './web_modules/js-sha256.js'
+
+      // FUNCTIONS
+      function getFragment () {
+        return window.location.hash.substring(1)
+      }
 
       // APP
       class App extends Component {
         // INIT
         constructor (props) {
           super(props)
-          let hash = window.location.hash.substring(1)
+          let hash = getFragment()
           let init = {
             pw: hash,
             sha256: hash ? sha256(hash) : ''
@@ -37,6 +42,7 @@
          * @memberof Body
          */
         async handleChange (e) {
+          // console.log(e)
           let startTime = new Date().getTime()
 
           // calculate sha256
@@ -49,59 +55,119 @@
           // update state
           this.setState({
             pw: pw,
-            sha256: res,
-            timeTaken: timeTaken
+            sha256: res
           })
         }
 
         // RENDER
         render (props, state) {
-          //components
-          const sha256Input = () => {
+          // COMPONENTS
+
+          // sha 256 input box
+
+          const Nav = props => {
+            return h(
+              'div',
+              { className: ' bg-success white ph2 pv2 nav' },
+              NavItem(1, props.title)
+            )
+          }
+
+          // // navbar
+          // const Nav = props => {
+          //   return html`
+          //     <div class="bg-success white ph2 pv2 nav">
+          //       <${NavItem} cols="1" text="${props.title}" />
+          //     </div>
+          //   `
+          // }
+
+          const NavItem = (cols, text) => {
+            return h('div', { className: 'col' + ' ' + cols }, text)
+          }
+
+          // // navbar item
+          // const NavItem = props => html`
+          //   <div class="col ${props.cols}">${props.text}</div>
+          // `
+
+          // form
+          const Form = () => {
+            return h('div', { className: 'row' }, PwInput(), Sha256Input())
+          }
+
+          // const Form = props =>
+          //   html`
+          //     <div class="row">
+          //       <${PwInput} /><${Sha256Input} /><sub
+          //         >${'Time: ' + this.state.timeTaken + 'ms'}</sub
+          //       >
+          //     </div>
+          //   `
+
+          const Sha256Input = () => {
             return h('input', {
               placeholder: 'sha256',
               className: 'card w-100',
               value: this.state.sha256,
+              key: Math.random(),
               disabled: true
             })
           }
 
-          const pwInput = () => {
+          // // sha 256 input
+          // const Sha256Input = () =>
+          //   html`
+          //     <input
+          //       placeholder="sha256"
+          //       class="card w-100"
+          //       disabled
+          //       value="${this.state.sha256}"
+          //     />
+          // ;`
+
+          const PwInput = () => {
             return h('input', {
               placeholder: 'passphrase',
               className: 'card w-100',
-              onChange: this.handleChange,
-              onKeyUp: this.handleChange,
+              onInput: this.handleChange,
               value: this.state.pw,
-              name: 'pw',
               autoFocus: true
             })
           }
 
-          const nav = title => {
-            return h(
-              'div',
-              { className: ' bg-success white ph2 pv2 nav' },
-              navItem(1, title)
-            )
+          // const PwInput = () => {
+          //   return html`
+          //     <input
+          //       placeholder="passphrase"
+          //       class="card w-100"
+          //       autofocus="true"
+          //       value=${this.state.pw}
+          //       onInput=${this.handleChange}
+          //       key=${Math.random()}
+          //     />
+          //     ;
+          //   `
+          // }
+
+          const Main = () => {
+            return h('div', null, Nav({ title: this.state.title }), Form())
           }
 
-          const navItem = (cols, text) => {
-            return h('div', { className: 'col' + ' ' + cols }, text)
-          }
-
-          const form = () => {
-            return h(
-              'div',
-              { className: 'row' },
-              pwInput(),
-              sha256Input(),
-              h('sub', null, 'Time: ' + this.state.timeTaken + 'ms')
-            )
-          }
+          // const Main = () => {
+          //   return html`
+          //     <div><${Nav} title="${this.state.title}" /><${Form} /></div>
+          //   `
+          // }
 
           // main
-          return h('div', null, nav(this.state.title), form())
+          // console.log(PwInput)
+          return Main()
+
+          // // main
+          // return html`
+          //   <div><${Form} /></div>
+          // `
         }
       }
 
