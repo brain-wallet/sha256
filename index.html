@@ -65,36 +65,54 @@
 
         // RENDER
         render (props, state) {
-          return h(
-            'div',
-            { className: 'row' },
+          //components
+          const sha256Input = () =>
+            h('input', {
+              placeholder: 'sha256',
+              className: 'card w-100',
+              value: this.state.sha256,
+              disabled: true
+            })
+
+          const pwInput = () =>
+            h('input', {
+              placeholder: 'passphrase',
+              className: 'card w-100',
+              onChange: this.handleChange,
+              onKeyUp: this.handleChange,
+              value: this.state.pw,
+              name: 'pw',
+              autoFocus: true
+            })
+
+          const nav = () =>
+            h(
+              'h1',
+              {
+                className: 'col white ph2 bg-success pv2 row pv2',
+                style:
+                  'margin-top:-12px; margin-left:-16px; margin-right: -16px; margin-botton: -16px; font-weight: bold; font-size: 20px'
+              },
+              this.state.title
+            )
+
+          const form = () =>
             h(
               'div',
-              { className: '6 col' },
-              h(
-                'div',
-                null,
-                h('h1', null, this.state.title),
-                h('input', {
-                  placeholder: 'passphrase',
-                  className: 'card w-100',
-                  onChange: this.handleChange,
-                  onKeyUp: this.handleChange,
-                  value: this.state.pw,
-                  name: 'pw',
-                  autoFocus: true
-                }),
-                h('input', {
-                  placeholder: 'sha256',
-                  className: 'card w-100',
-                  value: this.state.sha256,
-                  disabled: true
-                }),
-                h('h1'),
-                h('span', null, 'Time taken: ' + this.state.timeTaken + 'ms')
-              )
+              null,
+              nav(),
+              pwInput(),
+              sha256Input(),
+              h('h1'),
+              h('span', null, 'Time taken: ' + this.state.timeTaken + 'ms')
             )
-          )
+
+          const col = () => h('div', { className: '6 col' }, form())
+
+          const row = () => h('div', { className: 'row' }, col())
+
+          // main
+          return row()
         }
       }
 
