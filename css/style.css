@@ -1,3 +1,4 @@
+/* lit */
 * + * {
   box-sizing: border-box;
   margin: 0.5em 0;
@@ -94,10 +95,8 @@ th {
   border: solid;
   font: 0.7em nunito;
 }
-body {
-  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
-}
 
+/* util */
 :root {
   --font: nunito;
   --gray-color: #ccc;
@@ -413,4 +412,15 @@ body {
 .dim:focus {
   opacity: 0.5;
   transition: opacity 0.15s ease-in;
+}
+
+/* gradient */
+body {
+  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
+}
+
+.nav {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: -8px;
 }

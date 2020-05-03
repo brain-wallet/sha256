@@ -80,9 +80,7 @@
             h(
               'div',
               {
-                className: 'row bg-success white ph2 pv2 m2',
-                style:
-                  'margin-top:-8px; margin-left:-0px; font-weight: bold; font-size: 20px'
+                className: 'bg-success white ph2 pv2 nav'
               },
               this.state.title
             )
@@ -97,7 +95,7 @@
             )
 
           // main
-          return h('div', null, nav(), form())
+          return h('span', null, nav(), form())
         }
       }
 
