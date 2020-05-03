@@ -55,7 +55,8 @@
           super(props)
           this.state = {
             pw: '',
-            sha256: ''
+            sha256: '',
+            timeTaken: 0
           }
           this.handleChange = this.handleChange.bind(this)
         }
@@ -102,10 +103,9 @@
               'div',
               { className: '6 col' },
               h(
-                'h1',
+                'div',
                 { id: 'app' },
-                state.message,
-                h('br'),
+                h('h1', null, this.state.message),
                 h('input', {
                   placeholder: 'passphrase',
                   className: 'card w-100',
@@ -116,12 +116,13 @@
                   name: 'pw',
                   autoFocus: true
                 }),
-                h('br'),
                 h('input', {
                   placeholder: 'sha256',
                   className: 'card w-100',
                   value: this.state.sha256
-                })
+                }),
+                h('h1'),
+                h('span', null, 'Time taken: ' + this.state.timeTaken + 'ms')
               )
             )
           )
