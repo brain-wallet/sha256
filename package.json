@@ -1,25 +1,23 @@
 {
-  "name": "@brain-wallet/brain-wallet",
-  "version": "0.0.7",
-  "description": "brain wallet",
+  "name": "@brain-wallet/sha256",
+  "version": "0.0.1",
+  "description": "sha256",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brain-wallet/brain-wallet.git"
+    "url": "git+https://github.com/brain-wallet/sha256.git"
   },
   "snowpack": {
-    "webDependencies": [
-      "js-sha256"
-    ]
+    "webDependencies": ["js-sha256"]
   },
   "author": "Melvin Carvalho <melvincarvalho@gmail.com> (https://melvincarvalho.com/#me)",
   "bugs": {
-    "url": "https://github.com/brain-wallet/brain-wallet/issues"
+    "url": "https://github.com/brain-wallet/sha256/issues"
   },
-  "homepage": "https://github.com/brain-wallet/brain-wallet#readme",
+  "homepage": "https://github.com/brain-wallet/sha256#readme",
   "dependencies": {
     "js-sha256": "^0.9.0"
   }
