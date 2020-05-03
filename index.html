@@ -51,6 +51,46 @@
 
       /** Example classful component */
       class App extends Component {
+        constructor (props) {
+          super(props)
+          this.state = {
+            pw: '',
+            sha256: ''
+          }
+          this.handleChange = this.handleChange.bind(this)
+        }
+
+        /**
+         * handle all form changes
+         *
+         * @param {*} e
+         * @memberof Body
+         */
+        async handleChange (e) {
+          console.log(e)
+          pw = event.target.value
+          this.setState({ pw: pw })
+
+          let startTime = new Date().getTime()
+          var pw
+          var target = e.target
+          if (e.target) {
+            var name = e.target.name
+          }
+
+          var res = await sha256(this.state.pw)
+
+          // benchmark
+          var timeTaken = new Date().getTime() - startTime
+          console.log('timeTaken', timeTaken)
+
+          // update state
+          this.setState({
+            sha256: res,
+            timeTaken: timeTaken
+          })
+        }
+
         componentDidMount () {
           this.setState({ message: title })
         }
@@ -68,10 +108,20 @@
                 h('br'),
                 h('input', {
                   placeholder: 'passphrase',
-                  className: 'card w-100'
+                  className: 'card w-100',
+                  onChange: this.handleChange,
+                  onBlur: this.handleChange,
+                  onKeyUp: this.handleChange,
+                  value: this.state.pw,
+                  name: 'pw',
+                  autoFocus: true
                 }),
                 h('br'),
-                h('input', { placeholder: 'sha256', className: 'card w-100' })
+                h('input', {
+                  placeholder: 'sha256',
+                  className: 'card w-100',
+                  value: this.state.sha256
+                })
               )
             )
           )
