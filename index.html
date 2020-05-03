@@ -103,8 +103,7 @@
               nav(),
               pwInput(),
               sha256Input(),
-              h('h1'),
-              h('span', null, 'Time taken: ' + this.state.timeTaken + 'ms')
+              h('sub', null, 'Time: ' + this.state.timeTaken + 'ms')
             )
 
           const col = () => h('div', { className: '6 col' }, form())
