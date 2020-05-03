@@ -91,7 +91,7 @@
               {
                 className: 'row bg-success white ph2 pv2 m2',
                 style:
-                  'margin-top:-8px; margin-left:-16px; font-weight: bold; font-size: 20px'
+                  'margin-top:-8px; margin-left:-0px; font-weight: bold; font-size: 20px'
               },
               this.state.title
             )
@@ -99,19 +99,14 @@
           const form = () =>
             h(
               'div',
-              null,
-              nav(),
+              { className: 'row' },
               pwInput(),
               sha256Input(),
               h('sub', null, 'Time: ' + this.state.timeTaken + 'ms')
             )
 
-          const col = () => h('div', { className: '6 col' }, form())
-
-          const row = () => h('div', { className: 'row' }, col())
-
           // main
-          return row()
+          return h('div', null, nav(), form())
         }
       }
 
