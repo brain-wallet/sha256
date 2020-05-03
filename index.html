@@ -73,13 +73,12 @@
               { className: '6 col' },
               h(
                 'div',
-                { id: 'app' },
+                null,
                 h('h1', null, this.state.title),
                 h('input', {
                   placeholder: 'passphrase',
                   className: 'card w-100',
                   onChange: this.handleChange,
-                  onBlur: this.handleChange,
                   onKeyUp: this.handleChange,
                   value: this.state.pw,
                   name: 'pw',
