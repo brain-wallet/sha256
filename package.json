@@ -1,6 +1,6 @@
 {
   "name": "@brain-wallet/sha256",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "sha256",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,11 @@
     "url": "git+https://github.com/brain-wallet/sha256.git"
   },
   "snowpack": {
-    "webDependencies": ["js-sha256", "spux", "html2hscript"]
+    "webDependencies": [
+      "js-sha256",
+      "spux",
+      "html2hscript"
+    ]
   },
   "author": "Melvin Carvalho <melvincarvalho@gmail.com> (https://melvincarvalho.com/#me)",
   "bugs": {
