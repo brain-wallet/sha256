@@ -8,6 +8,7 @@
     <script type="module">
       // IMPORTS
       import { h, html, Component, render } from './web_modules/spux.js'
+      import Nav from './components/Nav.js'
       import sha256 from './web_modules/js-sha256.js'
 
       // FUNCTIONS
@@ -64,25 +65,9 @@
         // Main app
         Main = () => {
           return html`
-            <div>
-              <${this.Nav} title="${this.state.title}" /><${this.Form} />
-            </div>
+            <div><${Nav} title="${this.state.title}" /><${this.Form} /></div>
           `
         }
-
-        // navbar
-        Nav = props => {
-          return html`
-            <div class="bg-success white ph2 pv2 nav">
-              <${this.NavItem} cols="1" text="${props.title}" />
-            </div>
-          `
-        }
-
-        // navbar item
-        NavItem = props => html`
-          <div class="col ${props.cols}">${props.text}</div>
-        `
 
         // form
         Form = props =>
@@ -106,7 +91,6 @@
               onInput=${this.handleChange}
               key="PwInput"
             />
-            ;
           `
         }
 
@@ -119,7 +103,6 @@
               disabled
               value="${this.state.sha256}"
             />
-            ;
           `
 
         // RENDER
