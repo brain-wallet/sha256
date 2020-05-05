@@ -17,7 +17,7 @@
 
       // APP
       class App extends Component {
-        // INIT
+        // INIT STATE
         constructor (props) {
           super(props)
           let hash = getFragment()
@@ -41,8 +41,8 @@
          * @param {*} e
          * @memberof Body
          */
-        async handleChange (e) {
-          // console.log(e)
+        handleChange (e) {
+          // start time
           let startTime = new Date().getTime()
 
           // calculate sha256
@@ -60,119 +60,70 @@
           })
         }
 
-        // RENDER
-        render (props, state) {
-          // COMPONENTS
+        // COMPONENTS
+        // Main app
+        Main = () => {
+          return html`
+            <div>
+              <${this.Nav} title="${this.state.title}" /><${this.Form} />
+            </div>
+          `
+        }
 
-          // sha 256 input box
+        // navbar
+        Nav = props => {
+          return html`
+            <div class="bg-success white ph2 pv2 nav">
+              <${this.NavItem} cols="1" text="${props.title}" />
+            </div>
+          `
+        }
 
-          // const Nav = props => {
-          //   return h(
-          //     'div',
-          //     { className: ' bg-success white ph2 pv2 nav' },
-          //     NavItem(1, props.title)
-          //   )
-          // }
+        // navbar item
+        NavItem = props => html`
+          <div class="col ${props.cols}">${props.text}</div>
+        `
 
-          // navbar
-          const Nav = props => {
-            return html`
-              <div class="bg-success white ph2 pv2 nav">
-                <${NavItem} cols="1" text="${props.title}" />
-              </div>
-            `
-          }
-
-          // const NavItem = (cols, text) => {
-          //   return h('div', { className: 'col' + ' ' + cols }, text)
-          // }
-
-          // navbar item
-          const NavItem = props => html`
-            <div class="col ${props.cols}">${props.text}</div>
+        // form
+        Form = props =>
+          html`
+            <div class="row">
+              <${this.PwInput} />
+              <${this.Sha256Input} />
+              <sub>${'Time: ' + this.state.timeTaken + 'ms'}</sub>
+            </div>
           `
 
-          // const Sha256Input = h('input', {
-          //   placeholder: 'sha256',
-          //   className: 'card w-100',
-          //   value: this.state.sha256,
-          //   disabled: true
-          // })
+        // passphrase input
+        PwInput = () => {
+          return html`
+            <input
+              placeholder="passphrase"
+              class="card w-100"
+              autofocus="true"
+              value=${this.state.pw}
+              onInput=${this.handleChange}
+              key="PwInput"
+            />
+            ;
+          `
+        }
 
-          // sha 256 input
-          const Sha256Input = () =>
-            html`
-              <input
-                placeholder="sha256"
-                class="card w-100"
-                disabled
-                value="${this.state.sha256}"
-              />
-              ;
-            `
+        // sha 256 input
+        Sha256Input = () =>
+          html`
+            <input
+              placeholder="sha256"
+              class="card w-100"
+              disabled
+              value="${this.state.sha256}"
+            />
+            ;
+          `
 
-          const PwInput = () =>
-            h('input', {
-              placeholder: 'passphrase',
-              className: 'card w-100',
-              onInput: this.handleChange,
-              value: this.state.pw,
-              autoFocus: true,
-              key: 'PwInput'
-            })
-
-          // const PwInput = () => {
-          //   return html`
-          //     <input
-          //       placeholder="passphrase"
-          //       class="card w-100"
-          //       autofocus="true"
-          //       value=${this.state.pw}
-          //       onInput=${this.handleChange}
-          //       key="PwInput"
-          //     />
-          //     ;
-          //   `
-          // }
-
-          // form
-          const Form = () => {
-            return h(
-              'div',
-              { className: 'row', key: Math.random },
-              PwInput(),
-              Sha256Input(),
-              h('sub', null, 'Time: ' + this.state.timeTaken + 'ms')
-            )
-          }
-
-          // const Form = props =>
-          //   html`
-          //     <div class="row" key="${Math.random()}">
-          //       <${PwInput} />
-          //       <${Sha256Input} />
-          //       <sub>${'Time: ' + this.state.timeTaken + 'ms'}</sub>
-          //     </div>
-          //   `
-
-          const Main = () => {
-            return h('div', null, Nav({ title: this.state.title }), Form())
-          }
-
-          // const Main = () => {
-          //   return html`
-          //     <div><${Nav} title="${this.state.title}" /><${Form} /></div>
-          //   `
-          // }
-
-          // main
-          // console.log(PwInput)
-          return Main()
-
-          // // main
-          // return html`
-          //   <div><${Form} /></div>
-          // `
+        // RENDER
+        render (props, state) {
+          return this.Main()
         }
       }
 
