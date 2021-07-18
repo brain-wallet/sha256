@@ -1,6 +1,6 @@
 {
   "name": "@brain-wallet/sha256",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "sha256",
   "main": "index.js",
   "scripts": {
