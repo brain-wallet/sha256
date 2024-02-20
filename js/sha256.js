@@ -4,35 +4,35 @@ async function getHashFunction() {
     // Browser environment
     return {
       hash: async (inputBuffer) => {
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', inputBuffer);
-        return new Uint8Array(hashBuffer);
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', inputBuffer)
+        return new Uint8Array(hashBuffer)
       }
-    };
+    }
   } else {
     // Node.js environment
-    const crypto = await import('crypto');
+    const crypto = await import('crypto')
     return {
       hash: (inputBuffer) => {
-        const hash = crypto.createHash('sha256');
-        return hash.update(inputBuffer).digest();
+        const hash = crypto.createHash('sha256')
+        return hash.update(inputBuffer).digest()
       }
-    };
+    }
   }
 }
 
 function hexStringToBuffer(hexString) {
-  return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+  return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)))
 }
 
 function bufferToHex(buffer) {
   return Array.from(buffer)
     .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+    .join('')
 }
 
-export async function calculateSHA256Hex(inputHex) {
-  const inputBuffer = hexStringToBuffer(inputHex);
-  const hashFunction = await getHashFunction();
-  const hashBuffer = await hashFunction.hash(inputBuffer);
-  return bufferToHex(hashBuffer);
+export default async function sha256(inputHex) {
+  const inputBuffer = hexStringToBuffer(inputHex)
+  const hashFunction = await getHashFunction()
+  const hashBuffer = await hashFunction.hash(inputBuffer)
+  return bufferToHex(hashBuffer)
 }
